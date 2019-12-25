@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-enum Devices
+enum Devices : uint8_t
 {
     BRAKE_LIGHT = 1,
     REVERSE_LIGHT = 2,
@@ -11,13 +11,13 @@ enum Devices
     SERVO = 5
 };
 
-enum ServoCommand
+enum ServoCommand : uint8_t
 {
     SET_NEW_ZERO = 1,
     TURN = 2
 };
 
-enum TurnSignalCommand
+enum TurnSignalCommand : uint8_t
 {
     TURN_SIGNAL_OFF = 0,
     LEFT = 2,
@@ -25,21 +25,21 @@ enum TurnSignalCommand
     HAZARD_LIGHTS = 4
 };
 
-enum HeadLightCommand
+enum HeadLightCommand : uint8_t
 {
     HEADLIGHT_OFF = 0,
     HEADLIGHT_DAYTIME = 20,
     HIGH_BEAM = 255
 };
 
-enum BrakeLightsCommand
+enum BrakeLightsCommand : uint8_t
 {
     BRAKE_LIGHT_OFF = 0,
     BRAKE_LIGHT_DAYTIME = 20,
     STOP = 255
 };
 
-enum ReverseLightCommand
+enum ReverseLightCommand : uint8_t
 {
     REVERSE_LIGHT_OFF = 0,
     ON = 20
