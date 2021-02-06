@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "../MPU9250/MPU9250.h"
 
 enum Devices : uint8_t
 {
@@ -59,4 +60,62 @@ struct LightsAndServoMsg
     BrakeLightsCommand brakeLightsCommand;
     ReverseLightCommand reverseLightCommand;
     TurnSignalCommand turnSignalCommand;
+};
+
+struct Vector3D
+{
+    float x;
+    float y;
+    float z;
+};
+
+enum SignalID
+{
+    CONFIGURATION_REQ = 0,
+    CONFIGURATION_CFM = 1,
+    CALIBRATION_REQ = 2,
+    CALIBRATION_CFM = 3,
+    MEASUREMENT_IND = 4
+};
+
+struct SignalBase
+{
+    SignalBase(SignalID _signalID) : signalID(_signalID) {}
+    const SignalID signalID;
+};
+
+
+struct CalibrationReq : SignalBase
+{
+    CalibrationReq() : SignalBase(CALIBRATION_REQ) {}
+    float magneticDelication;
+    MPU9250Setting mpuSettings;
+};
+
+struct ConfigurationReq : SignalBase, CalibrationReq
+{
+    ConfigurationReq() : SignalBase(CONFIGURATION_REQ) {}
+    Vector3D accelrBias;
+    Vector3D gyroBias;
+    Vector3D magBias;
+    Vector3D magScale;
+};
+
+struct MeasurementInd : SignalBase
+{
+    MeasurementInd() : SignalBase(MEASUREMENT_IND) {} 
+    int16_t roll;
+    int16_t pitch;
+    int16_t yaw;
+};
+
+struct ConfigurationCfm : SignalBase
+{
+    ConfigurationCfm() : SignalBase(CONFIGURATION_CFM) {} 
+    bool isValid;
+};
+
+struct CalibrationCfm : SignalBase, ConfigurationCfm
+{
+    CalibrationCfm() : SignalBase(CALIBRATION_CFM) {}
 };
