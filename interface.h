@@ -104,9 +104,9 @@ struct ConfigurationReq : SignalBase, CalibrationReq
 struct MeasurementInd : SignalBase
 {
     MeasurementInd() : SignalBase(MEASUREMENT_IND) {} 
-    int16_t roll;
-    int16_t pitch;
-    int16_t yaw;
+    float roll;
+    float pitch;
+    float yaw;
 };
 
 struct ConfigurationCfm : SignalBase
