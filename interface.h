@@ -92,9 +92,11 @@ struct CalibrationReq : SignalBase
     MPU9250Setting mpuSettings;
 };
 
-struct ConfigurationReq : SignalBase, CalibrationReq
+struct ConfigurationReq : SignalBase
 {
     ConfigurationReq() : SignalBase(CONFIGURATION_REQ) {}
+    float magneticDelication;
+    MPU9250Setting mpuSettings;
     Vector3D accelrBias;
     Vector3D gyroBias;
     Vector3D magBias;
@@ -115,7 +117,12 @@ struct ConfigurationCfm : SignalBase
     bool isValid;
 };
 
-struct CalibrationCfm : SignalBase, ConfigurationCfm
+struct CalibrationCfm : SignalBase
 {
     CalibrationCfm() : SignalBase(CALIBRATION_CFM) {}
+    bool isValid;
+    Vector3D accelrBias;
+    Vector3D gyroBias;
+    Vector3D magBias;
+    Vector3D magScale;
 };
