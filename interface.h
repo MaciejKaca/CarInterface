@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdint.h>
-#include "../MPU9250/MPU9250.h"
 
 enum Devices : uint8_t
 {
@@ -84,6 +83,75 @@ struct SignalBase
     const SignalID signalID;
 };
 
+enum class ACCEL_FS_SEL : uint8_t
+{
+    A2G,
+    A4G,
+    A8G,
+    A16G
+};
+
+enum class GYRO_FS_SEL : uint8_t
+{
+    G250DPS,
+    G500DPS,
+    G1000DPS,
+    G2000DPS
+};
+
+enum class MAG_OUTPUT_BITS : uint8_t
+{
+    M14BITS,
+    M16BITS
+};
+
+enum class FIFO_SAMPLE_RATE : uint8_t
+{
+    SMPL_1000HZ,
+    SMPL_500HZ,
+    SMPL_333HZ,
+    SMPL_250HZ,
+    SMPL_200HZ,
+    SMPL_167HZ,
+    SMPL_143HZ,
+    SMPL_125HZ,
+};
+
+enum class GYRO_DLPF_CFG : uint8_t
+{
+    DLPF_250HZ,
+    DLPF_184HZ,
+    DLPF_92HZ,
+    DLPF_41HZ,
+    DLPF_20HZ,
+    DLPF_10HZ,
+    DLPF_5HZ,
+    DLPF_3600HZ,
+};
+
+enum class ACCEL_DLPF_CFG : uint8_t
+{
+    DLPF_218HZ_0,
+    DLPF_218HZ_1,
+    DLPF_99HZ,
+    DLPF_45HZ,
+    DLPF_21HZ,
+    DLPF_10HZ,
+    DLPF_5HZ,
+    DLPF_420HZ,
+};
+
+struct MPU9250Setting
+{
+    ACCEL_FS_SEL accel_fs_sel {ACCEL_FS_SEL::A16G};
+    GYRO_FS_SEL gyro_fs_sel {GYRO_FS_SEL::G2000DPS};
+    MAG_OUTPUT_BITS mag_output_bits {MAG_OUTPUT_BITS::M16BITS};
+    FIFO_SAMPLE_RATE fifo_sample_rate {FIFO_SAMPLE_RATE::SMPL_200HZ};
+    uint8_t gyro_fchoice {0x03};
+    GYRO_DLPF_CFG gyro_dlpf_cfg {GYRO_DLPF_CFG::DLPF_41HZ};
+    uint8_t accel_fchoice {0x01};
+    ACCEL_DLPF_CFG accel_dlpf_cfg {ACCEL_DLPF_CFG::DLPF_45HZ};
+};
 
 struct CalibrationReq : SignalBase
 {
